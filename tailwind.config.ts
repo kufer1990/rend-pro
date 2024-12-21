@@ -11,6 +11,12 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        customCounterGray: "#595959",
+        customPocketDarkGray: "#1f1f1f",
+        customGray: "#f6f6f6",
+        customPurple: "#6529FE",
+        customActivePurple: "#754EFF",
+        customTextPlaceholder: "#454545",
       },
     },
   },
