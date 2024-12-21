@@ -21,7 +21,7 @@ const PocketItem = ({
   return (
     <div
       className={clsx(
-        "flex justify-between py-1.5 px-2 cursor-pointer w-8 md:w-full",
+        "flex justify-between mb-2 py-1.5 px-2 cursor-pointer w-8 md:w-full ",
         {
           "bg-customPurple rounded-md": active,
         }
