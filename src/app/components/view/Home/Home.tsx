@@ -41,6 +41,11 @@ const pocketsData = [
 
 const Home = () => {
   const [selectedPocket, setSelectedPocket] = useState(1);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
 
   return (
     <div className="bg-customGray h-screen py-2 px-2">
@@ -63,13 +68,18 @@ const Home = () => {
               />
             );
           })}
-          <PocketCreateButton />
+
+          <PocketCreateButton onClick={openModal} />
         </div>
         <SidebarFooter />
       </div>
 
       <div>
-        <PocketModal />
+        <PocketModal
+          pocketsData={pocketsData}
+          modalIsOpen={modalIsOpen}
+          setModalIsOpen={setModalIsOpen}
+        />
       </div>
     </div>
   );

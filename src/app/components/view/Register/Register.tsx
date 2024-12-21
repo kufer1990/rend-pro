@@ -15,7 +15,6 @@ const Register = () => {
             </div>
             <input
               type="text"
-              id="email-address-icon"
               className="bg-gray-50 border border-customGray text-black text-md rounded-lg block w-full ps-10 p-2.5 placeholder-customTextPlaceholder  "
               placeholder="Username"
             />
@@ -26,7 +25,6 @@ const Register = () => {
             </div>
             <input
               type="password"
-              id="password-icon"
               className="bg-gray-50 border border-customGray text-black text-md rounded-lg block w-full ps-10 p-2.5 placeholder-customTextPlaceholder"
               placeholder="Password"
             />
