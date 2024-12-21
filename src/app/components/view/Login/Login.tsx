@@ -6,7 +6,7 @@ import PersonIcon from "../../../../../public/icon/PersonIcon";
 const Login = () => {
   return (
     <div className="flex h-screen">
-      <div className="w-full md:w-1/4 pt-56">
+      <div className="pt-56 w-full md:w-1/4">
         <p className="w-3/4 m-auto text-3xl font-bold mb-6">Login</p>
         <div className="flex flex-col justify-center items-center">
           <div className="relative w-3/4 mt-4 mb-3">
@@ -45,7 +45,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <div className="w-3/4 hidden md:block  bg-[url('/image1.jpg')] bg-coitain bg-center"></div>
+      <div className="w-3/4 bg-[url('/image1.jpg')] bg-coitain bg-center hidden md:block"></div>
     </div>
   );
 };
