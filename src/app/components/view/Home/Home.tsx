@@ -67,7 +67,7 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-customGray h-screen py-2 px-2">
+    <div className="bg-customGray h-[100dvh] py-2 px-2">
       <button className="hidden" onClick={handleCreatePocket}>
         test button
       </button>

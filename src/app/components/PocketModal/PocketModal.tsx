@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import PocketCreateButton from "../PocketCreateButton/PocketCreateButton";
 import PocketItem from "../PocketItem/PocketItem";
@@ -13,12 +13,18 @@ const PocketModal = ({
   setModalIsOpen,
   pocketsData,
 }: PocketModalProps) => {
+  const [isCreateNewPocket, setIsCreateNewPocket] = useState(false);
+  console.log("🚀 ~ isCreateNewPocket:", isCreateNewPocket);
+
   return (
     <div>
       <Modal
         ariaHideApp={false}
         isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
+        onRequestClose={() => {
+          setModalIsOpen(false);
+          setIsCreateNewPocket(false);
+        }}
         className="fixed bottom-20 bg-white rounded-3xl shadow-lg pb-2 px-2 max-w-md mx-auto mt-20 w-full md:w-[400px]"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
@@ -38,24 +44,32 @@ const PocketModal = ({
             Create
           </button>
         </div>
-        <p className="text-md text-customPocketDarkGray font-medium pl-2">
-          Select pocket
-        </p>
-        {pocketsData.map(pocket => {
-          return (
-            <PocketItem
-              id={pocket._id}
-              key={pocket.name}
-              icon={pocket.emoji}
-              name={pocket.name}
-              count={pocket?.task?.length || 0}
-              active={false}
-              onClick={() => {}}
-            />
-          );
-        })}
+        {!isCreateNewPocket && (
+          <p className="text-md text-customPocketDarkGray font-medium pl-2">
+            Select pocket
+          </p>
+        )}
+        {!isCreateNewPocket &&
+          pocketsData.map(pocket => {
+            return (
+              <PocketItem
+                id={pocket._id}
+                key={pocket.name}
+                icon={pocket.emoji}
+                name={pocket.name}
+                count={pocket?.task?.length || 0}
+                active={false}
+                onClick={() => {}}
+              />
+            );
+          })}
 
-        <PocketCreateButton isInModal={true} />
+        <PocketCreateButton
+          isInModal={true}
+          onClick={() => {
+            setIsCreateNewPocket(true);
+          }}
+        />
       </Modal>
     </div>
   );
