@@ -54,7 +54,7 @@ const Home = () => {
   const handleCreatePocket = () => {
     axiosInstance
       .post("/pockets", {
-        name: "test12",
+        name: "house",
         emoji: ":house:",
       })
       .then(res => {
@@ -66,15 +66,22 @@ const Home = () => {
       });
   };
 
+  const handleDeletePocket = () => {
+    axiosInstance.delete("/pockets/676892fce125a33b7e678f0b");
+  };
+
   return (
     <div className="bg-customGray h-[100dvh] py-2 px-2">
       <button className="hidden" onClick={handleCreatePocket}>
         test button
       </button>
+      <button className="hidden" onClick={handleDeletePocket}>
+        delete button
+      </button>
       <div className="h-full rounded-md bg-white flex flex-col items-center justify-between md:items-start w-10 pt-5 pb-1 md:px-6 md:py-10 md:w-[274px] ">
         <div className="w-full flex flex-col items-center md:items-start">
           <h1 className="text-2xl font-bold mb-8 hidden md:block">Pockets</h1>
-          <div className="cursor-pointer md:hidden flex justify-center items-center w-8 h-6 mb-6 rounded-md bg-customGray">
+          <div className="cursor-pointer md:hidden flex justify-center items-center w-8 h-6 mb-8 mt-10 rounded-md bg-customGray">
             <WindowIcon className="-rotate-90" />
           </div>
           {pockets?.map(pocket => {

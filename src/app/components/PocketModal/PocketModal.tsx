@@ -25,7 +25,7 @@ const PocketModal = ({
           setModalIsOpen(false);
           setIsCreateNewPocket(false);
         }}
-        className="fixed bottom-20 bg-white rounded-3xl shadow-lg pb-2 px-2 max-w-md mx-auto mt-20 w-full md:w-[400px]"
+        className="fixed bottom-20 bg-white rounded-3xl shadow-lg pb-2 px-2 max-w-md mx-auto w-full"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         <div className="p-1 bg-customGray rounded-xl mt-3 mb-5 flex justify-between">
@@ -45,7 +45,7 @@ const PocketModal = ({
           </button>
         </div>
         {!isCreateNewPocket && (
-          <p className="text-md text-customPocketDarkGray font-medium pl-2">
+          <p className="text-md text-customPocketDarkGray font-medium pl-2 mb-2">
             Select pocket
           </p>
         )}
@@ -60,6 +60,7 @@ const PocketModal = ({
                 count={pocket?.task?.length || 0}
                 active={false}
                 onClick={() => {}}
+                isModal={true}
               />
             );
           })}

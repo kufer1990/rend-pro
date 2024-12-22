@@ -9,6 +9,7 @@ type PocketItemProps = {
   count: number;
   active: boolean;
   onClick: (id: string) => void;
+  isModal?: boolean;
 };
 const PocketItem = ({
   id,
@@ -17,6 +18,7 @@ const PocketItem = ({
   count,
   active,
   onClick,
+  isModal,
 }: PocketItemProps) => {
   return (
     <div
@@ -24,6 +26,7 @@ const PocketItem = ({
         "flex justify-between mb-2 py-1.5 px-2 cursor-pointer w-8 md:w-full ",
         {
           "bg-customPurple rounded-md": active,
+          "w-full": isModal,
         }
       )}
       onClick={() => {
@@ -38,16 +41,18 @@ const PocketItem = ({
               .toImage(icon)
               .replace(
                 "<img",
-                '<img style="width:16px;height:16px;vertical-align:middle;"'
+                '<img style="width:16px;height:16px;vertical-align:middle; max-width:none"'
               ),
           }}
         />
 
         <div
           className={clsx(
-            "text-sm text-customPocketDarkGray ml-5 font-medium hidden md:block",
+            "text-sm text-customPocketDarkGray ml-5 font-medium md:block",
             {
               "text-white": active,
+              hidden: !isModal,
+              block: isModal,
             }
           )}
         >
@@ -56,10 +61,12 @@ const PocketItem = ({
       </div>
       <div
         className={clsx(
-          "py-1 px-2 flex items-center rounded-md text-customCounterGray text-sm hidden md:block",
+          "py-1 px-2 items-center rounded-md text-customCounterGray text-sm md:block",
           {
             "bg-customGray": !active,
             "text-white bg-customActivePurple": active,
+            hidden: !isModal,
+            block: isModal,
           }
         )}
       >
