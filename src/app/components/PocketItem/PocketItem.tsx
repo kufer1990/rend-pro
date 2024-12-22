@@ -32,13 +32,13 @@ const PocketItem = ({
     >
       <div className="flex items-center">
         <p
-          className=""
+          className="py-0.5"
           dangerouslySetInnerHTML={{
             __html: emojiToolkit
               .toImage(icon)
               .replace(
                 "<img",
-                '<img style="width:14px;height:14px;vertical-align:middle;"'
+                '<img style="width:16px;height:16px;vertical-align:middle;"'
               ),
           }}
         />
