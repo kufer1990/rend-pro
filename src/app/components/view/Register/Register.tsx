@@ -1,9 +1,34 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import PersonIcon from "../../../../../public/icon/PersonIcon";
 import KeyIcon from "../../../../../public/icon/KeyIcon";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegistration = () => {
+    if (!login || !password) {
+      return;
+    }
+
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/register`, {
+        login: login,
+        password: password,
+      })
+      .then(() => {
+        toast.success("User has been created");
+      })
+      .catch(() => {
+        toast.error("User has not been created");
+      });
+  };
+
   return (
     <div className="flex h-screen">
       <div className="w-full md:w-1/4 pt-56">
@@ -17,6 +42,7 @@ const Register = () => {
               type="text"
               className="bg-gray-50 border border-customGray text-black text-md rounded-lg block w-full ps-10 p-2.5 placeholder-customTextPlaceholder  "
               placeholder="Username"
+              onChange={e => setLogin(e.target.value)}
             />
           </div>
           <div className="relative w-3/4 mb-5">
@@ -27,11 +53,15 @@ const Register = () => {
               type="password"
               className="bg-gray-50 border border-customGray text-black text-md rounded-lg block w-full ps-10 p-2.5 placeholder-customTextPlaceholder"
               placeholder="Password"
+              onChange={e => setPassword(e.target.value)}
             />
           </div>
 
           <div className="w-3/4 flex justify-start">
-            <button className="bg-customPurple border-buttonPurple rounded-md p-2 px-5 text-white">
+            <button
+              onClick={handleRegistration}
+              className="bg-customPurple border-buttonPurple rounded-md p-2 px-5 text-white"
+            >
               Register
             </button>
           </div>
