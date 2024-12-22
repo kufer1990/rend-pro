@@ -68,7 +68,9 @@ const Home = () => {
 
   return (
     <div className="bg-customGray h-screen py-2 px-2">
-      {/* <button onClick={handleCreatePocket}>test button</button> */}
+      <button className="hidden" onClick={handleCreatePocket}>
+        test button
+      </button>
       <div className="h-full rounded-md bg-white flex flex-col items-center justify-between md:items-start w-10 pt-5 pb-1 md:px-6 md:py-10 md:w-[274px] ">
         <div className="w-full flex flex-col items-center md:items-start">
           <h1 className="text-2xl font-bold mb-8 hidden md:block">Pockets</h1>
