@@ -77,20 +77,19 @@ const Home = () => {
           <div className="cursor-pointer md:hidden flex justify-center items-center w-8 h-6 mb-6 rounded-md bg-customGray">
             <WindowIcon className="-rotate-90" />
           </div>
-          {pockets.length &&
-            pockets?.map(pocket => {
-              return (
-                <PocketItem
-                  id={pocket._id}
-                  key={pocket._id}
-                  icon={pocket.emoji}
-                  name={pocket.name}
-                  count={pocket?.task?.length || 0}
-                  active={selectedPocket === pocket._id}
-                  onClick={setSelectedPocket}
-                />
-              );
-            })}
+          {pockets?.map(pocket => {
+            return (
+              <PocketItem
+                id={pocket._id}
+                key={pocket._id}
+                icon={pocket.emoji}
+                name={pocket.name}
+                count={pocket?.task?.length || 0}
+                active={selectedPocket === pocket._id}
+                onClick={setSelectedPocket}
+              />
+            );
+          })}
 
           <PocketCreateButton onClick={openModal} />
         </div>

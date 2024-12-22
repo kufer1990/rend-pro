@@ -41,20 +41,19 @@ const PocketModal = ({
         <p className="text-md text-customPocketDarkGray font-medium pl-2">
           Select pocket
         </p>
-        {pocketsData.length &&
-          pocketsData.map(pocket => {
-            return (
-              <PocketItem
-                id={pocket._id}
-                key={pocket.name}
-                icon={pocket.emoji}
-                name={pocket.name}
-                count={pocket?.task?.length || 0}
-                active={false}
-                onClick={() => {}}
-              />
-            );
-          })}
+        {pocketsData.map(pocket => {
+          return (
+            <PocketItem
+              id={pocket._id}
+              key={pocket.name}
+              icon={pocket.emoji}
+              name={pocket.name}
+              count={pocket?.task?.length || 0}
+              active={false}
+              onClick={() => {}}
+            />
+          );
+        })}
 
         <PocketCreateButton isInModal={true} />
       </Modal>
