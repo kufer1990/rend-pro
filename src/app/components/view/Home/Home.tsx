@@ -1,10 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PocketItem from "../../PocketItem/PocketItem";
 import WindowIcon from "../../../../../public/icon/WindowIcon";
 import SidebarFooter from "./components/SidebarFooter";
 import PocketCreateButton from "../../PocketCreateButton/PocketCreateButton";
 import PocketModal from "../../PocketModal/PocketModal";
+import axiosInstance from "../../../../../utils/InstanceAxios";
+import { useUserStore } from "@/app/store/store";
+import PersonalDataModal from "./components/PersonalDataModal";
 
 const pocketsData = [
   {
@@ -41,11 +44,27 @@ const pocketsData = [
 
 const Home = () => {
   const [selectedPocket, setSelectedPocket] = useState(1);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+
+  const setUserData = useUserStore(state => state.setUserData);
 
   const openModal = () => {
-    setModalIsOpen(true);
+    setIsTaskModalOpen(true);
   };
+
+  useEffect(() => {
+    axiosInstance.get("/users/me").then(res => {
+      setUserData({
+        firstName: res.data.firstName,
+        lastName: res.data.lastName,
+      });
+
+      if (!res.data.firstName || !res.data.lastName) {
+        setIsUserModalOpen(true);
+      }
+    });
+  }, []);
 
   return (
     <div className="bg-customGray h-screen py-2 px-2">
@@ -77,10 +96,14 @@ const Home = () => {
       <div>
         <PocketModal
           pocketsData={pocketsData}
-          modalIsOpen={modalIsOpen}
-          setModalIsOpen={setModalIsOpen}
+          modalIsOpen={isTaskModalOpen}
+          setModalIsOpen={setIsTaskModalOpen}
         />
       </div>
+      <PersonalDataModal
+        isUserModalOpen={isUserModalOpen}
+        setIsUserModalOpen={setIsUserModalOpen}
+      />
     </div>
   );
 };

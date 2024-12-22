@@ -6,9 +6,11 @@ import PersonIcon from "../../../../../public/icon/PersonIcon";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useUserStore } from "../../../store/store";
 
 const Login = () => {
   const router = useRouter();
+  const setToken = useUserStore(state => state.setToken);
 
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +27,8 @@ const Login = () => {
         password: password,
       })
       .then(res => {
-        console.log(res);
+        localStorage.setItem("accessToken", res.data.token);
+        setToken(res.data.token);
         router.push("/home");
       })
       .catch(err => {

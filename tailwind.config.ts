@@ -16,6 +16,7 @@ export default {
         customGray: "#f6f6f6",
         customPurple: "#6529FE",
         customActivePurple: "#754EFF",
+        customDisabledPurple: "#A37FFE",
         customTextPlaceholder: "#454545",
       },
     },
