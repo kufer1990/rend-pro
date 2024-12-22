@@ -3,12 +3,12 @@ import React, { ReactNode } from "react";
 import emojiToolkit from "emoji-toolkit";
 
 type PocketItemProps = {
-  id: number;
+  id: string;
   icon: ReactNode;
   name: string;
   count: number;
   active: boolean;
-  onClick: (id: number) => void;
+  onClick: (id: string) => void;
 };
 const PocketItem = ({
   id,

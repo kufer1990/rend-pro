@@ -6,8 +6,10 @@ import PersonIcon from "../../../../../public/icon/PersonIcon";
 import KeyIcon from "../../../../../public/icon/KeyIcon";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
+  const router = useRouter();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,6 +24,7 @@ const Register = () => {
         password: password,
       })
       .then(() => {
+        router.push("/");
         toast.success("User has been created");
       })
       .catch(() => {

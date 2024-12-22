@@ -14,7 +14,6 @@ const PersonalDataModal = ({
   setIsUserModalOpen,
 }: PersonalDataModalProps) => {
   const userStore = useUserStore(state => state);
-  console.log("🚀 ~ userStore:", userStore);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,7 +23,7 @@ const PersonalDataModal = ({
     setLastName(userStore.lastName);
   }, [userStore]);
 
-  const disabled = false;
+  const disabled = !firstName || !lastName;
 
   const handleSubmit = () => {
     if (disabled) {

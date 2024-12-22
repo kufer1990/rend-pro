@@ -4,7 +4,7 @@ import PocketCreateButton from "../PocketCreateButton/PocketCreateButton";
 import PocketItem from "../PocketItem/PocketItem";
 
 type PocketModalProps = {
-  pocketsData: { id: number; icon: string; name: string; count: number }[];
+  pocketsData: { _id: string; emoji: string; name: string; task: [] }[];
   modalIsOpen: boolean;
   setModalIsOpen: (modalIsOpen: boolean) => void;
 };
@@ -41,19 +41,20 @@ const PocketModal = ({
         <p className="text-md text-customPocketDarkGray font-medium pl-2">
           Select pocket
         </p>
-        {pocketsData.map(pocket => {
-          return (
-            <PocketItem
-              id={pocket.id}
-              key={pocket.name}
-              icon={pocket.icon}
-              name={pocket.name}
-              count={pocket.count}
-              active={false}
-              onClick={() => {}}
-            />
-          );
-        })}
+        {pocketsData.length &&
+          pocketsData.map(pocket => {
+            return (
+              <PocketItem
+                id={pocket._id}
+                key={pocket.name}
+                icon={pocket.emoji}
+                name={pocket.name}
+                count={pocket?.task?.length || 0}
+                active={false}
+                onClick={() => {}}
+              />
+            );
+          })}
 
         <PocketCreateButton isInModal={true} />
       </Modal>
