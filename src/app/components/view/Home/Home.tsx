@@ -51,14 +51,21 @@ const Home = () => {
       });
   }, []);
 
-  const handleCreatePocket = () => {
+  const handleCreatePocket = (
+    inputContent: string,
+    selectedEmoji: string,
+    handleClear: () => void
+  ) => {
     axiosInstance
       .post("/pockets", {
-        name: "house",
-        emoji: ":house:",
+        name: inputContent,
+        emoji: selectedEmoji,
       })
       .then(res => {
+        toast.success("Pockets created successfully");
         setIsPockets([...pockets, res.data]);
+        setIsTaskModalOpen(false);
+        handleClear();
       })
       .catch(err => {
         toast.error(err.response.data.message);
@@ -72,9 +79,6 @@ const Home = () => {
 
   return (
     <div className="bg-customGray h-[100dvh] py-2 px-2">
-      <button className="hidden" onClick={handleCreatePocket}>
-        test button
-      </button>
       <button className="hidden" onClick={handleDeletePocket}>
         delete button
       </button>
@@ -108,6 +112,7 @@ const Home = () => {
           pocketsData={pockets}
           modalIsOpen={isTaskModalOpen}
           setModalIsOpen={setIsTaskModalOpen}
+          handleCreatePocket={handleCreatePocket}
         />
       </div>
       <PersonalDataModal
