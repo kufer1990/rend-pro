@@ -18,14 +18,22 @@ const PocketCreateButton = ({
         }
       }}
       className={clsx(
-        "mt-5 cursor-pointer bg-customGray text-customTextPlaceholder rounded-3xl flex justify-center items-center font-medium text-sm w-8 h-8 md:w-full md:p-2 md:px-5 md:justify-start",
+        "mt-5 cursor-pointer bg-customGray text-customTextPlaceholder rounded-3xl flex items-center font-medium text-sm w-8 h-8 md:w-full md:p-2 md:px-5 md:justify-start",
         {
-          "mt-0": isInModal,
+          " justify-center": !isInModal,
+          "mt-0 w-full justify-start p-2 px-5": isInModal,
         }
       )}
     >
       <span className="md:-ml-2">+</span>
-      <button className="ml-5 hidden md:block">Create new pocket</button>
+      <button
+        className={clsx("ml-5 md:block", {
+          block: isInModal,
+          hidden: !isInModal,
+        })}
+      >
+        Create new pocket
+      </button>
     </div>
   );
 };

@@ -77,7 +77,8 @@ const PocketModal = ({
           setModalIsOpen(false);
           setIsCreateNewPocket(false);
         }}
-        className="fixed bottom-20 bg-white rounded-3xl shadow-lg pb-2 px-2 max-w-md mx-auto w-full"
+        onAfterClose={handleClear}
+        className="fixed bottom-20 bg-white rounded-3xl shadow-lg pb-2 px-2 max-w-md mx-auto w-[90%]"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         {!isCreateNewPocket && (

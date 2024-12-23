@@ -56,6 +56,11 @@ const Home = () => {
     selectedEmoji: string,
     handleClear: () => void
   ) => {
+    if (!inputContent || !selectedEmoji) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
     axiosInstance
       .post("/pockets", {
         name: inputContent,
@@ -78,48 +83,56 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-customGray h-[100dvh] py-2 px-2">
-      <button className="hidden" onClick={handleDeletePocket}>
-        delete button
-      </button>
-      <div className="h-full rounded-md bg-white flex flex-col items-center justify-between md:items-start w-10 pt-5 pb-1 md:px-6 md:py-10 md:w-[274px] ">
-        <div className="w-full flex flex-col items-center md:items-start">
-          <h1 className="text-2xl font-bold mb-8 hidden md:block">Pockets</h1>
-          <div className="cursor-pointer md:hidden flex justify-center items-center w-8 h-6 mb-8 mt-10 rounded-md bg-customGray">
-            <WindowIcon className="-rotate-90" />
+    <>
+      <div className="flex">
+        {/* sidebar */}
+        <div className="bg-customGray h-[100dvh] py-2 px-2">
+          <button className="hidden" onClick={handleDeletePocket}>
+            delete button
+          </button>
+          <div className="h-full rounded-md bg-white flex flex-col items-center justify-between md:items-start w-10 pt-5 pb-1 md:px-6 md:py-10 md:w-[274px] ">
+            <div className="w-full flex flex-col items-center md:items-start">
+              <h1 className="text-2xl font-bold mb-8 hidden md:block">
+                Pockets
+              </h1>
+              <div className="cursor-pointer md:hidden flex justify-center items-center w-8 h-6 mb-8 mt-10 rounded-md bg-customGray">
+                <WindowIcon className="-rotate-90" />
+              </div>
+              {pockets?.map(pocket => {
+                return (
+                  <PocketItem
+                    id={pocket._id}
+                    key={pocket._id}
+                    icon={pocket.emoji}
+                    name={pocket.name}
+                    count={pocket?.task?.length || 0}
+                    active={selectedPocket === pocket._id}
+                    onClick={setSelectedPocket}
+                  />
+                );
+              })}
+
+              <PocketCreateButton onClick={openModal} />
+            </div>
+            <SidebarFooter />
           </div>
-          {pockets?.map(pocket => {
-            return (
-              <PocketItem
-                id={pocket._id}
-                key={pocket._id}
-                icon={pocket.emoji}
-                name={pocket.name}
-                count={pocket?.task?.length || 0}
-                active={selectedPocket === pocket._id}
-                onClick={setSelectedPocket}
-              />
-            );
-          })}
-
-          <PocketCreateButton onClick={openModal} />
         </div>
-        <SidebarFooter />
+        {/* main */}
+        <div className="bg-customGray w-full">asd</div>
       </div>
 
-      <div>
-        <PocketModal
-          pocketsData={pockets}
-          modalIsOpen={isTaskModalOpen}
-          setModalIsOpen={setIsTaskModalOpen}
-          handleCreatePocket={handleCreatePocket}
-        />
-      </div>
+      <PocketModal
+        pocketsData={pockets}
+        modalIsOpen={isTaskModalOpen}
+        setModalIsOpen={setIsTaskModalOpen}
+        handleCreatePocket={handleCreatePocket}
+      />
+
       <PersonalDataModal
         isUserModalOpen={isUserModalOpen}
         setIsUserModalOpen={setIsUserModalOpen}
       />
-    </div>
+    </>
   );
 };
 
