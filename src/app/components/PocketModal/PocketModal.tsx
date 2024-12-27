@@ -1,25 +1,34 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Modal from "react-modal";
 import PocketCreateButton from "../PocketCreateButton/PocketCreateButton";
 import PocketItem from "../PocketItem/PocketItem";
 import emojiToolkit from "emoji-toolkit";
 import clsx from "clsx";
 import ArrowIcon from "../../../../public/icon/ArrowIcon";
+import { toast } from "react-toastify";
 
 type PocketModalProps = {
-  pocketsData: { _id: string; emoji: string; name: string; task: [] }[];
+  pocketsData: { _id: string; emoji: string; name: string; tasks: string[] }[];
   modalIsOpen: boolean;
+  initialSelectedPocket: string;
   setModalIsOpen: (modalIsOpen: boolean) => void;
+  handleCreateTast: (
+    inputTaskContent: string,
+    pocketId: string,
+    handleCreateTast: () => void
+  ) => void;
   handleCreatePocket: (
-    inputContent: string,
+    inputPocketContent: string,
     selectedEmoji: string,
     handleClear: () => void
   ) => void;
 };
 const PocketModal = ({
-  modalIsOpen,
-  setModalIsOpen,
   pocketsData,
+  modalIsOpen,
+  initialSelectedPocket,
+  setModalIsOpen,
+  handleCreateTast,
   handleCreatePocket,
 }: PocketModalProps) => {
   //modal mode - view
@@ -38,15 +47,19 @@ const PocketModal = ({
   );
   const [selectedEmoji, setSelectedEmoji] = useState<string>(":smile:");
 
-  // input content
-  const [inputContent, setInputContent] = useState<string>("");
+  const [inputPocketContent, setInputPocketContent] = useState<string>("");
+  const [inputTaskContent, setInputTaskContent] = useState<string>("");
+
+  useEffect(() => {
+    setSelectedPocket(initialSelectedPocket);
+  }, [initialSelectedPocket]);
 
   const handleClear = () => {
     setIsCreateNewPocket(false);
-    setSelectedPocket(null);
     setSelectedCategoryEmoji(myCategories[0]);
-    setInputContent("");
+    setInputPocketContent("");
     setSelectedEmoji(":smile:");
+    setInputTaskContent("");
   };
 
   const initialCategories = () => {
@@ -93,9 +106,24 @@ const PocketModal = ({
                   type="text"
                   className="w-full ml-4 bg-customGray text-customPocketDarkGray text-sm font-medium placeholder-customTextPlaceholder focus:outline-none"
                   placeholder="Create a new task"
+                  value={inputTaskContent}
+                  onChange={e => setInputTaskContent(e.target.value)}
                 />
               </div>
-              <button className="bg-[#E7E7E7] py-2 px-3 ml-2 text-sm rounded-md font-semibold text-customPocketDarkGray">
+              <button
+                onClick={() => {
+                  if (!selectedPocket) {
+                    toast.error("Please select pocket");
+                    return;
+                  }
+                  handleCreateTast(
+                    inputTaskContent,
+                    selectedPocket,
+                    handleClear
+                  );
+                }}
+                className="bg-[#E7E7E7] py-2 px-3 ml-2 text-sm rounded-md font-semibold text-customPocketDarkGray"
+              >
                 Create
               </button>
             </div>
@@ -111,7 +139,7 @@ const PocketModal = ({
                     key={pocket.name}
                     icon={pocket.emoji}
                     name={pocket.name}
-                    count={pocket?.task?.length || 0}
+                    count={pocket?.tasks?.length || 0}
                     active={selectedPocket === pocket._id}
                     onClick={() => setSelectedPocket(pocket._id)}
                     isModal={true}
@@ -123,7 +151,6 @@ const PocketModal = ({
               isInModal={true}
               onClick={() => {
                 setIsCreateNewPocket(true);
-                setSelectedPocket(null);
                 initialCategories();
               }}
             />
@@ -155,13 +182,17 @@ const PocketModal = ({
                   type="text"
                   className="w-full ml-4 bg-customGray text-customPocketDarkGray text-sm font-medium placeholder-customTextPlaceholder focus:outline-none"
                   placeholder="Create a new pocket"
-                  value={inputContent}
-                  onChange={e => setInputContent(e.target.value)}
+                  value={inputPocketContent}
+                  onChange={e => setInputPocketContent(e.target.value)}
                 />
               </div>
               <button
                 onClick={() =>
-                  handleCreatePocket(inputContent, selectedEmoji, handleClear)
+                  handleCreatePocket(
+                    inputPocketContent,
+                    selectedEmoji,
+                    handleClear
+                  )
                 }
                 className="bg-[#E7E7E7] py-2 px-3 ml-2 text-sm rounded-md font-semibold text-customPocketDarkGray"
               >

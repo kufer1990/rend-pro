@@ -82,7 +82,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-      <div className="w-3/4 bg-[url('/image1.jpg')] bg-coitain bg-center hidden md:block"></div>
+      <div className="w-3/4 bg-[url('/image1.jpg')] bg-cover bg-no-repeat bg-center hidden md:block"></div>
     </div>
   );
 };

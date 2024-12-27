@@ -76,7 +76,7 @@ const Register = () => {
           </Link>
         </p>
       </div>
-      <div className="w-3/4 hidden md:block  bg-[url('/image1.jpg')] bg-coitain bg-center"></div>
+      <div className="w-3/4 hidden md:block  bg-[url('/image1.jpg')] bg-cover bg-no-repeat bg-center"></div>
     </div>
   );
 };
