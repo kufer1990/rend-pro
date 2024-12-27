@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 import emojiToolkit from "emoji-toolkit";
 import TaskItem from "../../TaskItem/TaskItem";
+import TastCreateButton from "../../TastCreateButton/TastCreateButton";
 
 type Pocket = {
   _id: string;
@@ -215,10 +216,10 @@ const Home = () => {
         </div>
         {/* main */}
 
-        <div className="bg-customGray w-full p-10">
+        <div className="bg-customGray w-full pt-10 px-4 md:p-10">
           {selectedPocket ? (
             <>
-              <div className="flex justify-between items-center mb-16">
+              <div className="flex mb-16 flex-col md:flex-row  md:justify-between md:items-center">
                 <div>
                   <div className="flex items-center">
                     <p
@@ -246,7 +247,7 @@ const Home = () => {
                   onClick={() => {
                     setShowCompleted(!showCompleted);
                   }}
-                  className="bg-white py-2 px-3 ml-2 text-sm rounded-md font-semibold text-customPocketDarkGray"
+                  className="bg-white  px-3 text-sm rounded-md font-semibold text-customPocketDarkGray py-3 md:py-2 mt-8 md:mt-0 md:ml-2"
                 >
                   {showCompleted ? "Show completed" : "Hide completed"}
                 </button>
@@ -292,6 +293,8 @@ const Home = () => {
         isUserModalOpen={isUserModalOpen}
         setIsUserModalOpen={setIsUserModalOpen}
       />
+
+      <TastCreateButton isTaskModalOpen={isTaskModalOpen} onClick={openModal} />
     </>
   );
 };
