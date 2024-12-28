@@ -10,6 +10,7 @@ type PocketItemProps = {
   active: boolean;
   onClick: (id: string) => void;
   isModal?: boolean;
+  isExpanded?: boolean;
 };
 const PocketItem = ({
   id,
@@ -19,6 +20,7 @@ const PocketItem = ({
   active,
   onClick,
   isModal,
+  isExpanded = false,
 }: PocketItemProps) => {
   return (
     <div
@@ -26,7 +28,7 @@ const PocketItem = ({
         "flex justify-between mb-2 py-1.5 px-2 cursor-pointer w-8 md:w-full ",
         {
           "bg-customPurple rounded-md": active,
-          "w-full": isModal,
+          "w-full": isModal || isExpanded,
         }
       )}
       onClick={() => {
@@ -51,8 +53,8 @@ const PocketItem = ({
             "text-sm text-customPocketDarkGray ml-5 font-medium md:block",
             {
               "text-white": active,
-              hidden: !isModal,
-              block: isModal,
+              hidden: !isModal && !isExpanded,
+              block: isModal || isExpanded,
             }
           )}
         >
@@ -65,8 +67,8 @@ const PocketItem = ({
           {
             "bg-customGray": !active,
             "text-white bg-customActivePurple": active,
-            hidden: !isModal,
-            block: isModal,
+            hidden: !isModal && !isExpanded,
+            block: isModal || isExpanded,
           }
         )}
       >

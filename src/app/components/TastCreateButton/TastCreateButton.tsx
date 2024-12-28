@@ -19,7 +19,7 @@ const TastCreateButton = ({
         }
       }}
       className={clsx(
-        "fixed bottom-5 left-1/2 transform -translate-x-1/2 cursor-pointer flex items-center text-white rounded-3xl px-2 py-2 z-10 w-[90%] sm:w-[448px]",
+        "fixed bottom-5 right-5 md:left-1/2 md:transform md:-translate-x-1/2 cursor-pointer flex  items-center text-white rounded-3xl px-2 py-2 z-10  h-12 md:h-10 w-12 md:w-[450px] justify-center md:justify-start",
         {
           "bg-[#3D3D3D]": !isTaskModalOpen,
           "bg-customPurple": isTaskModalOpen,
@@ -33,7 +33,7 @@ const TastCreateButton = ({
       >
         <ChevronUpIcon />
       </span>
-      <button className={clsx("")}>Create new Task</button>
+      <button className={clsx("hidden md:block")}>Create new Task</button>
     </div>
   );
 };

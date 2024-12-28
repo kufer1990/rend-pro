@@ -13,6 +13,9 @@ import { ClipLoader } from "react-spinners";
 import emojiToolkit from "emoji-toolkit";
 import TaskItem from "../../TaskItem/TaskItem";
 import TastCreateButton from "../../TastCreateButton/TastCreateButton";
+import { motion } from "motion/react";
+import clsx from "clsx";
+import { useMediaQuery } from "react-responsive";
 
 type Pocket = {
   _id: string;
@@ -38,13 +41,16 @@ const Home = () => {
   const [refetch, setIsRefetch] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
 
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   const setUserData = useUserStore(state => state.setUserData);
   const selectedPocket = pockets.find(
     pocket => pocket._id === selectedPocketId
   );
 
-  const openModal = () => {
-    setIsTaskModalOpen(true);
+  const switchModal = () => {
+    setIsTaskModalOpen(!isTaskModalOpen);
   };
 
   useEffect(() => {
@@ -144,10 +150,6 @@ const Home = () => {
       });
   };
 
-  const handleDeletePocket = () => {
-    axiosInstance.delete("/pockets/676892fce125a33b7e678f0b");
-  };
-
   const handlePocketItem = (id: string) => {
     setSelectedPocketId(id);
     handleTasks(id);
@@ -184,15 +186,32 @@ const Home = () => {
       <div className="flex">
         {/* sidebar */}
         <div className="bg-customGray h-[100dvh] py-2 px-2">
-          <button className="hidden" onClick={handleDeletePocket}>
-            delete button
-          </button>
-          <div className="h-full rounded-md bg-white flex flex-col items-center justify-between md:items-start w-10 pt-5 pb-1 md:px-6 md:py-10 md:w-[274px] ">
+          <motion.div
+            className={clsx(
+              "h-full rounded-md bg-white flex flex-col  justify-between md:items-start w-10 pt-5 pb-1 md:px-6 md:py-10 md:w-[274px]",
+              {
+                "items-center": !isExpanded,
+              }
+            )}
+            animate={
+              isMobile
+                ? {
+                    width: isExpanded ? "274px" : "40px",
+                  }
+                : { width: "274px" }
+            }
+            initial={isMobile && { width: "40px" }}
+          >
             <div className="w-full flex flex-col items-center md:items-start">
               <h1 className="text-2xl font-bold mb-8 hidden md:block">
                 Pockets
               </h1>
-              <div className="cursor-pointer md:hidden flex justify-center items-center w-8 h-6 mb-8 mt-10 rounded-md bg-customGray">
+              <div
+                onClick={() => {
+                  setIsExpanded(!isExpanded);
+                }}
+                className="cursor-pointer md:hidden flex justify-center items-center w-8 h-6 mb-8 mt-10 rounded-md bg-customGray"
+              >
                 <WindowIcon className="-rotate-90" />
               </div>
               {pockets?.map(pocket => {
@@ -205,17 +224,18 @@ const Home = () => {
                     count={pocket?.tasks?.length || 0}
                     active={selectedPocketId === pocket._id}
                     onClick={handlePocketItem}
+                    isExpanded={isExpanded}
                   />
                 );
               })}
 
-              <PocketCreateButton onClick={openModal} />
+              {!isExpanded && <PocketCreateButton onClick={switchModal} />}
             </div>
-            <SidebarFooter />
-          </div>
+            <SidebarFooter isExpanded={isExpanded} />
+          </motion.div>
         </div>
-        {/* main */}
 
+        {/* main */}
         <div className="bg-customGray w-full pt-10 px-4 md:p-10">
           {selectedPocket ? (
             <>
@@ -298,7 +318,12 @@ const Home = () => {
         setIsUserModalOpen={setIsUserModalOpen}
       />
 
-      <TastCreateButton isTaskModalOpen={isTaskModalOpen} onClick={openModal} />
+      {!isExpanded && (
+        <TastCreateButton
+          isTaskModalOpen={isTaskModalOpen}
+          onClick={switchModal}
+        />
+      )}
     </>
   );
 };

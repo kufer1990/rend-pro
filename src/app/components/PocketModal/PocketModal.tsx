@@ -92,7 +92,7 @@ const PocketModal = ({
           setIsCreateNewPocket(false);
         }}
         onAfterClose={handleClear}
-        className="fixed bottom-20 bg-white rounded-3xl shadow-lg pb-2 px-2 max-w-md mx-auto w-[90%]"
+        className="fixed bottom-20 bg-white rounded-3xl shadow-lg pb-2 px-2 max-w-md mx-auto w-[90%] overflow-hidden"
         overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
       >
         <AnimatePresence mode="wait">
