@@ -68,12 +68,6 @@ const PersonalDataModal = ({
         placeholder="Last name"
         onChange={e => setLastName(e.target.value)}
       />
-      <div className="flex  items-center mb-2">
-        <button className="bg-customGray w-full rounded-md pl-3 py-2.5 text-start text-customTextPlaceholder font-medium">
-          Click to upload your avatar
-        </button>
-        <div className="w-10 h-10 ml-2 bg-[#d9d9d9] rounded-full"></div>
-      </div>
       <button
         onClick={handleSubmit}
         disabled={disabled}

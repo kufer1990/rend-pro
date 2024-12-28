@@ -195,6 +195,7 @@ const PocketModal = ({
                     }}
                   />
                   <input
+                    maxLength={19}
                     type="text"
                     className="w-full ml-4 bg-customGray text-customPocketDarkGray text-sm font-medium placeholder-customTextPlaceholder focus:outline-none"
                     placeholder="Create a new pocket"

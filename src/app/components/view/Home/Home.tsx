@@ -188,15 +188,12 @@ const Home = () => {
         <div className="bg-customGray h-[100dvh] py-2 px-2">
           <motion.div
             className={clsx(
-              "h-full rounded-md bg-white flex flex-col  justify-between md:items-start w-10 pt-5 pb-1 md:px-6 md:py-10 md:w-[274px]",
-              {
-                "items-center": !isExpanded,
-              }
+              "h-full rounded-md bg-white flex flex-col justify-between md:items-start w-10 pt-5 pb-1 md:px-6 md:py-10 md:w-[274px]"
             )}
             animate={
               isMobile
                 ? {
-                    width: isExpanded ? "274px" : "40px",
+                    width: isExpanded ? "200px" : "40px",
                   }
                 : { width: "274px" }
             }
@@ -293,7 +290,7 @@ const Home = () => {
             </>
           ) : (
             <div className="flex justify-center items-center h-[100vh]">
-              {pockets.length ? (
+              {pockets.length && tasks.length ? (
                 <>
                   <ClipLoader size={80} color="#4076EE" />{" "}
                   <span className="text-3xl ml-3">Loading...</span>
