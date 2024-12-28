@@ -73,8 +73,8 @@ const Home = () => {
         setSelectedPocketId(selectedPocketId || res.data[0]._id);
         handleTasks(selectedPocketId || res.data[0]._id);
       })
-      .catch(() => {
-        toast.error("Something went wrong");
+      .catch(err => {
+        console.log(err);
       });
   };
 
@@ -87,8 +87,8 @@ const Home = () => {
         });
         setTasks(tasks);
       })
-      .catch(() => {
-        toast.error("Something went wrong");
+      .catch(err => {
+        console.log(err);
       });
   };
 
@@ -273,8 +273,12 @@ const Home = () => {
             </>
           ) : (
             <div className="flex justify-center items-center h-[100vh]">
-              <ClipLoader size={80} color="#4076EE" />{" "}
-              <span className="text-3xl ml-3">Loading...</span>
+              {pockets.length ? (
+                <>
+                  <ClipLoader size={80} color="#4076EE" />{" "}
+                  <span className="text-3xl ml-3">Loading...</span>
+                </>
+              ) : null}
             </div>
           )}
         </div>
